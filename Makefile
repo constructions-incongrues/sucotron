@@ -16,11 +16,11 @@ clean: ## Supprime les fichiers audio de la collection
 		read -e -p "[collections/$(COLLECTION)] Les fichiers audio de la collection seront supprimés. Êtes-vous sûr⋅e ? [o/N] " RESPONSE; \
 		if [ "$$RESPONSE" == "o" ]; then \
 			echo "[collections/$(COLLECTION)] Suppression des fichiers audio"; \
-			rm $(COLLECTIONS_HOME)/$(COLLECTION)/audio/*; \
+			rm -f $(COLLECTIONS_HOME)/$(COLLECTION)/audio/*; \
 		fi; \
 	else \
 		echo "[collections/$(COLLECTION)] Suppression des fichiers audio (forcé)"; \
-		rm $(COLLECTIONS_HOME)/$(COLLECTION)/audio/*; \
+		rm -f $(COLLECTIONS_HOME)/$(COLLECTION)/audio/*; \
 	fi;
 
 queries: ## Gère la création, l'import et la modification des fichiers de requête de la collection
