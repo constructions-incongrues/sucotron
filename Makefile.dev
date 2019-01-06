@@ -1,4 +1,4 @@
-.PHONY=help build push
+.PHONY=help build push release tag
 
 SHELL=/bin/bash
 
@@ -11,5 +11,11 @@ help: ## Affiche ce message d'aide. Une documentation détaillée est disponible
 build: ## Génère une image Docker à partir des sources du projet
 	docker build -t $(IMAGE):$(TAG) .
 
-push: ## Publie l'image Docker
+push: ## Publie l'image Docker dans son registre
 	docker push $(IMAGE):$(TAG)
+
+release: tag build push ## Crée et publie une nouvelle version du projet
+
+tag:
+	git tag $(TAG)
+	git push --tags

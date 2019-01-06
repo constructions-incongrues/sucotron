@@ -10,28 +10,17 @@ Plus concrètement, il permet de gérer des collections de fichiers audio. Chaqu
 
 ## Installation
 
-Installer les dépendances :
+Docker doit être [installé](https://docs.docker.com/install/).
 
 ```sh
-sudo apt install curl git make
+curl https://raw.githubusercontent.com/constructions-incongrues/sucotron/master/bin/sucotron > ./sucotron
+chmod +x ./sucotron
+sudo mv ./sucotron /usr/local/bin/sucotron
 ```
 
-Récupérer les sources :
+## Utilisation
 
-```sh
-git clone https://github.com/constructions-incongrues/sucotron
-```
-
-## Paramètres
-
-- `AUDIO_FORMAT=flac`: Format des fichiers audio générés
-- `COLLECTION=default`: Nom de la collection active
-- `COLLECTIONS_HOME=./collections` : Chemin vers un dossier destiné à contenir des collections
-- `EDIT_QUERIES=false`: Définir à `true` si on souhaite éditer le fichier de requêtes d'une collection existante
-- `FORCE=false`: Définir à `true` pour déclencher le mode non-interactif. Il sera répondu `oui` à toutes les questions
-- `IMPORT_QUERIES=false`: Définir comme le chemin vers un fichier de requêtes existant pour l'importer dans la collection.
-
-## Commandes
+### Commandes
 
 Le Suçotron s'appuie sur [Make](https://www.gnu.org/software/make/) et expose les commandes suivantes :
 
@@ -40,16 +29,24 @@ Le Suçotron s'appuie sur [Make](https://www.gnu.org/software/make/) et expose l
 - `queries` Gère la création, l'import et la modification des fichiers de requête de la collection
 - `suce` :  Recherche, télécharge et encode les résultats des recherches du fichier de requêtes de la collection
 
+### Paramètres
+
+- `AUDIO_FORMAT=flac` : Format des fichiers audio générés
+- `COLLECTION=default` : Nom de la collection active
+- `COLLECTIONS_HOME=./collections` : Chemin vers un dossier destiné à contenir des collections
+- `FORCE=false` : Définir à `true` pour déclencher le mode non-interactif. Il sera répondu `oui` à toutes les questions
+- `IMPORT_QUERIES=false` : Définir comme le chemin vers un fichier de requêtes existant pour l'importer dans la collection
+
 ## Cookbook
 
 ### Création d'une nouvelle collection au format MP3
 
 ```sh
-make suce COLLECTION=macollection AUDIO_FORMAT=mp3
+sucotron suce COLLECTION=macollection AUDIO_FORMAT=mp3
 ```
 
 ### Duplication d'une collection existante dans un autre format audio
 
 ```sh
-make suce COLLECTION=nouvellecollection IMPORT_QUERIES=./collections/collectionexistante/queries.txt AUDIO_FORMAT=flac
+sucotron suce COLLECTION=nouvellecollection IMPORT_QUERIES=./collections/collectionexistante/queries.txt AUDIO_FORMAT=flac
 ```
