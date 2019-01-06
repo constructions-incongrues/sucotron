@@ -5,6 +5,6 @@ docker run \
     --init \
     --rm \
     --user $(id -u):$(id -g) \
-    -v /home/tristan/Bureau/sucotron/collections:/usr/local/src/sucotron/collections \
-    ${SUCOTRON_IMAGE-constructionsincongrues/sucotron}:${SUCOTRON_VERSION-develop} \
+    -v ${COLLECTIONS_HOME-${PWD}/collections}:/usr/local/src/sucotron/collections \
+    ${SUCOTRON_IMAGE-constructionsincongrues/sucotron}:${SUCOTRON_VERSION-latest} \
     make "$@"
