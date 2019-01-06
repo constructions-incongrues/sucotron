@@ -5,7 +5,6 @@ SHELL=/bin/bash
 AUDIO_FORMAT=flac
 COLLECTION=default
 COLLECTIONS_HOME=./collections
-EDIT_QUERIES=false
 IMPORT_QUERIES=false
 FORCE=false
 
@@ -36,11 +35,6 @@ queries: ## Gère la création, l'import et la modification des fichiers de requ
 			echo "[collections/$(COLLECTION)] Import du fichier de requêtes (forcé, file=$(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt)"; \
 			cp "$(IMPORT_QUERIES)" "$(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt"; \
 		fi; \
-	fi
-
-	@if [ -f "$(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt" ] && [ "$(EDIT_QUERIES)" == "true" ]; then \
-		echo "[collections/$(COLLECTION)] Édition du fichier de requêtes (path=$(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt)"; \
-		touch $(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt; \
 	fi
 
 	@if [ ! -f "$(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt" ]; then \
