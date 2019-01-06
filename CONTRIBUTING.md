@@ -18,7 +18,7 @@ Les commandes liées au cycle de vie du projet sont regroupées dans le fichier 
 ## Paramètres
 
 - `IMAGE=constructionsincongrues/sucotron` : Nom de l'image Docker
-- `TAG=latest` : Tag de l'image Docker
+- `VERSION=` : Une version d'application au format [SemVer](https://semver.org/)
 
 ## Cookbook
 
