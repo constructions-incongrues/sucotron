@@ -1,12 +1,10 @@
 #!/bin/bash
 
-source .env
-
 docker run \
     -it \
     --init \
     --rm \
     --user $(id -u):$(id -g) \
     -v ${COLLECTIONS_HOME-./collections}:/usr/local/src/sucotron/collections \
-    ${SUCOTRON_IMAGE-constructionsincongrues/sucotron}:1.1.15 \
+    ${SUCOTRON_IMAGE-constructionsincongrues/sucotron}:1.1.16 \
     make "$@"
