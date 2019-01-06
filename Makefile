@@ -48,12 +48,12 @@ suce: queries youtube-dl ## Recherche, télécharge et encode les résultats des
 	NUM_TRACKS=`wc -l $(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt | cut -d' ' -f1`; \
 	I=0; \
 	while read -r QUERY; do \
-		VIDEO_TITLE=`./vendors/youtube-dl "ytsearch:$$QUERY" --get-title`; \
+		VIDEO_TITLE=`./vendor/youtube-dl "ytsearch:$$QUERY" --get-title`; \
 		let "I++"; \
 		LEVENSHTEIN_DISTANCE=`levenshtein "$$QUERY" "$$VIDEO_TITLE"`; \
 		echo -ne "\r[collections/$(COLLECTION)] [$$I/$$NUM_TRACKS] distance=\"$$LEVENSHTEIN_DISTANCE\" query=\"$$QUERY\" result=\"$$VIDEO_TITLE\" format=\"$(AUDIO_FORMAT)\"\n"; \
 		if ! [ -f "$(COLLECTIONS_HOME)/$(COLLECTION)/audio/$$VIDEO_TITLE.$(AUDIO_FORMAT)" ]; then \
-			./vendors/youtube-dl \
+			./vendor/youtube-dl \
 				"ytsearch:$$QUERY" \
 				--audio-format=$(AUDIO_FORMAT) \
 				--extract-audio \
@@ -63,8 +63,8 @@ suce: queries youtube-dl ## Recherche, télécharge et encode les résultats des
 	done < $(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt;
 
 youtube-dl:
-	@if ! [ -f ./vendors/youtube-dl ]; then \
-		echo "[sucotron/vendors] Installation de youtube-dl"; \
-		curl -LsS "https://yt-dl.org/downloads/2019.01.02/youtube-dl" > ./vendors/youtube-dl; \
-    	chmod +x ./vendors/youtube-dl; \
+	@if ! [ -f ./vendor/youtube-dl ]; then \
+		echo "[sucotron/vendor] Installation de youtube-dl"; \
+		curl -LsS "https://yt-dl.org/downloads/2019.01.02/youtube-dl" > ./vendor/youtube-dl; \
+    	chmod +x ./vendor/youtube-dl; \
     fi
