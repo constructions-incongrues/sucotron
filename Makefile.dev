@@ -18,6 +18,7 @@ release: ## Crée un nouveau tag Git et le diffuse
 	git commit -m "[release] Sortie de la version $(VERSION)"
 	git hf release finish $$VERSION
 	$(MAKE) -f Makefile.dev executable VERSION=develop
+	git add bin/sucotron
 	git commit -m "[release] Retour sur la branche d'intégration"
 	git push origin develop
 
