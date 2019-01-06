@@ -3,7 +3,7 @@
 SHELL=/bin/bash
 
 IMAGE=constructionsincongrues/sucotron
-TAG=latest
+VERSION=
 
 help: ## Affiche ce message d'aide. Une documentation détaillée est disponible à l'adresse suivante : https://github.com/constructions-incongrues/sucotron
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
@@ -12,8 +12,8 @@ release: ## Crée un nouveau tag Git et le diffuse
 	git fetch --all
 	git checkout master
 	git merge develop
-	git tag $(TAG)
-	git push develop master --tags
+	git tag $(VERSION)
+	git push origin develop master --tags
 
 test: ## Exécute les tests automatisés
 	TEST_ID=`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c6`; \

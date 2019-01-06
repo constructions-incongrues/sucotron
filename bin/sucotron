@@ -2,7 +2,9 @@
 
 docker run \
     -it \
+    --init \
     --rm \
+    --user $(id -u):$(id -g) \
     -v $PWD/collections:/usr/local/src/sucotron/collections \
     constructionsincongrues/sucotron \
-    "$@"
+    make "$@"
