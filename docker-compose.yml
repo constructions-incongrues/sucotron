@@ -3,8 +3,9 @@ version: '3'
 services:
   sucotron:
     build: .
-    env_file: .env
-    image: constructionsincongrues/sucotron:${SUCOTRON_VERSION-latest}
+    environment:
+      SUCOTRON_VERSION: ${SUCOTRON_VERSION-develop}
+    image: constructionsincongrues/sucotron:${SUCOTRON_VERSION-develop}
     user: ${FIXUID:-1000}:${FIXGID:-1000}
     volumes:
       - .:/usr/local/src/sucotron
