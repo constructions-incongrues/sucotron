@@ -1,4 +1,4 @@
-.PHONY=help executable release test
+.PHONY=help release test
 
 SHELL=/bin/bash
 
@@ -7,26 +7,15 @@ VERSION=
 help: ## Affiche ce message d'aide. Une documentation détaillée est disponible à l'adresse suivante : https://github.com/constructions-incongrues/sucotron
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-executable: ## Génère un exécutable sucotron avec un numéro de version donné
-	COLLECTIONS_HOME=$\{PWD\}/collections SUCOTRON_IMAGE=constructionsincongrues/sucotron SUCOTRON_VERSION=$(VERSION) envsubst < etc/sucotron.dist > bin/sucotron
-	chmod +x bin/sucotron
-
-release: ## Crée un nouveau tag Git et le diffuse
+release: ## Crée d'une nouvelle release sur Github
 	git hf release start $$VERSION
-	$(MAKE) -f Makefile.dev executable VERSION=$$VERSION
-	git add bin/sucotron
-	git commit -m "[release] Sortie de la version $(VERSION)"
 	git hf release finish $$VERSION
-	$(MAKE) -f Makefile.dev executable VERSION=develop
-	git add bin/sucotron
-	git commit -m "[release] Retour sur la branche d'intégration"
-	git push origin develop
 
 test: ## Exécute les tests automatisés
 	TEST_ID=`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c6`; \
 	make queries COLLECTION="test$$TEST_ID"; \
 	echo "Jean Yann - Chobibi" > "./collections/test$$TEST_ID/queries.txt"; \
-	echo "Sabine Paturelle Les bêtises" >> "./collections/test$$TEST_ID/queries.txt"; \
+	echo "Sabine Paturelle Les baitises" >> "./collections/test$$TEST_ID/queries.txt"; \
 	make suce COLLECTION="test$$TEST_ID"; \
 	make clean COLLECTION="test$$TEST_ID" FORCE=yes; \
 	make help; \
