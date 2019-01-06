@@ -39,20 +39,21 @@ La commande précédente génère cette sortie (la distance permet de se faire u
 [collections/chansonstristes] [4/4] distance="3" query="Pépé Léo Ferré" result="Pépée - Léo Ferré" format="mp3"
 ```
 
-
 ```sh
 # Les fichiers audio au format MP3 ont bien été ajoutés à la collection
-ls collections/chansonstristes/audio/
+$ ls collections/chansonstristes/audio/
 
 "Ce Soir Je M'en Vais by Jacqueline Taieb.mp3"  "J'ai le cafard.mp3"  'Pépée - Léo Ferré.mp3'  'Romy Schneider & Michel Piccoli '\''La chanson d'\''Hélène'\''.mp3'
 ```
 
 ## Installation
 
-Docker doit être [installé](https://docs.docker.com/install/).
+Docker doit être [installé](https://docs.docker.com/install/) au préalable.
+
+Vous pouvez ensuite installer la dernière version stable de Suçotron :
 
 ```sh
-curl https://raw.githubusercontent.com/constructions-incongrues/sucotron/master/bin/sucotron > ./sucotron
+curl -sSL https://raw.githubusercontent.com/constructions-incongrues/sucotron/master/bin/sucotron > ./sucotron
 chmod +x ./sucotron
 sudo mv ./sucotron /usr/local/bin/sucotron
 ```
@@ -63,10 +64,10 @@ sudo mv ./sucotron /usr/local/bin/sucotron
 
 Le Suçotron s'appuie sur [Make](https://www.gnu.org/software/make/) et expose les commandes suivantes :
 
-- `clean` : Supprime les fichiers audio de la collection
+- `clean` : Supprime les fichiers audio de la collection active
 - `help` :  Affiche l'aide en ligne
-- `queries` Gère la création, l'import et la modification des fichiers de requête de la collection
-- `suce` :  Recherche, télécharge et encode les résultats des recherches du fichier de requêtes de la collection
+- `queries` Gère la création, l'import et la modification des fichiers de requête de la collection active
+- `suce` :  Recherche, télécharge et encode les résultats des recherches du fichier de requêtes de la collection active
 - `version` : Affiche la version de Suçotron en cours d'utilisation
 
 ### Paramètres
