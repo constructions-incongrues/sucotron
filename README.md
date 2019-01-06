@@ -2,14 +2,18 @@
 
 Il aspire pour vous !
 
-Le Suçotron permet de gérer des collections de fichiers audio. Chaque collection contient à sa racine un fichier `queries.txt` qui liste des requêtes de recherche Youtube. À l'exécution du script, les requêtes de la collection sélectionnée sont envoyées au moteur de recherche de Youtube. Le premier résultat de chaque recherche est téléchargé et ajouté à la collection.
+Le Suçotron permet d'obtenir simplement et rapidement de grandes quantités de morceaux de musique à partir d'une liste de références approximatives. 
+
+Il a été développé à la base pour répondre aux besoins des contributeurs des projets [Ouïedire](http://www.ouiedire.net) et [Empilements](http://empilements.incongru.org).
+
+Plus concrètement, il permet de gérer des collections de fichiers audio. Chaque collection contient à sa racine un fichier `queries.txt` qui liste des requêtes de recherche Youtube. À l'exécution du script, les requêtes de la collection sélectionnée sont envoyées au moteur de recherche de Youtube. Le premier résultat de chaque recherche est téléchargé et ajouté à la collection.
 
 ## Installation
 
 Installer les dépendances :
 
 ```sh
-sudo apt install curl make
+sudo apt install curl git make
 ```
 
 Récupérer les sources :
@@ -28,6 +32,8 @@ git clone https://github.com/constructions-incongrues/sucotron
 - `IMPORT_QUERIES=false`: Définir comme le chemin vers un fichier de requêtes existant pour l'importer dans la collection.
 
 ## Commandes
+
+Le Suçotron s'appuie sur [Make](https://www.gnu.org/software/make/) et expose les commandes suivantes :
 
 - `clean` : Supprime les fichiers audio de la collection
 - `help` :  Affiche l'aide en ligne
