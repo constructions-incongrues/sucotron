@@ -7,6 +7,6 @@ docker run \
     --init \
     --rm \
     --user $(id -u):$(id -g) \
-    -v $PWD/collections:/usr/local/src/sucotron/collections \
-    ${SUCOTRON_IMAGE-constructionsincongrues/sucotron}:${SUCOTRON_TAG-latest} \
+    -v ${COLLECTIONS_HOME-./collections}:/usr/local/src/sucotron/collections \
+    ${SUCOTRON_IMAGE-constructionsincongrues/sucotron}:1.1.15 \
     make "$@"
