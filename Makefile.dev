@@ -11,10 +11,11 @@ help: ## Affiche ce message d'aide. Une documentation détaillée est disponible
 release: ## Crée un nouveau tag Git et le diffuse
 	git fetch --all -p
 	git merge develop origin/develop
-	sed -i "s/^SUCOTRON_VERSION=.*/SUCOTRON_VERSION=$$VERSION/g" .env
+	sed -i "s/^SUCOTRON_VERSION=.*/SUCOTRON_VERSION=$(VERSION)/g" .env
 	git add .env
-	git commit -m "[release] Sortie de la version $$VERSION"
+	git commit -m "[release] Sortie de la version $(VERSION)"
 	git checkout master
+	git merge master origin/master
 	git merge develop
 	git tag $(VERSION)
 	git push origin develop master --tags
