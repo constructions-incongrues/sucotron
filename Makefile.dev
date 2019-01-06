@@ -2,7 +2,6 @@
 
 SHELL=/bin/bash
 
-IMAGE=constructionsincongrues/sucotron
 VERSION=
 
 help: ## Affiche ce message d'aide. Une documentation détaillée est disponible à l'adresse suivante : https://github.com/constructions-incongrues/sucotron
