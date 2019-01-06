@@ -11,9 +11,9 @@ FORCE=false
 help: ## Affiche ce message d'aide. Une documentation détaillée est disponible à l'adresse suivante : https://github.com/constructions-incongrues/sucotron
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-clean: ## Supprime les fichiers audio de la collection
+clean: ## Supprime les fichiers audio de la collection active
 	@if [ "$(FORCE)" == "false" ]; then \
-		read -e -p "[collections/$(COLLECTION)] Les fichiers audio de la collection seront supprimés. Êtes-vous sûr⋅e ? [o/N] " RESPONSE; \
+		read -e -p "[collections/$(COLLECTION)] Les fichiers audio de la collection active seront supprimés. Êtes-vous sûr⋅e ? [o/N] " RESPONSE; \
 		if [ "$$RESPONSE" == "o" ]; then \
 			echo "[collections/$(COLLECTION)] Suppression des fichiers audio"; \
 			rm -f $(COLLECTIONS_HOME)/$(COLLECTION)/audio/*; \
@@ -23,10 +23,10 @@ clean: ## Supprime les fichiers audio de la collection
 		rm -f $(COLLECTIONS_HOME)/$(COLLECTION)/audio/*; \
 	fi;
 
-queries: ## Gère la création, l'import et la modification des fichiers de requête de la collection
+collection: ## Gère la création, l'import et la modification de la base de données de requêtes de la collection active
 	@if [ "$(IMPORT_QUERIES)" != "false" ] && [ -f "$(IMPORT_QUERIES)" ]; then \
 		if [ "$(FORCE)" == "false" ]; then \
-			read -e -p "[collections/$(COLLECTION)] La base de requêtes existant sera écrasé. Êtes-vous sûr⋅e ? [o/N] " RESPONSE; \
+			read -e -p "[collections/$(COLLECTION)] La base de requêtes existant sera écrasée. Êtes-vous sûr⋅e ? [o/N] " RESPONSE; \
 			if [ "$$RESPONSE" == "o" ]; then \
 				echo "[collections/$(COLLECTION)] Import de la base de requêtes (file=$(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt)"; \
 				cp "$(IMPORT_QUERIES)" "$(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt"; \
@@ -43,7 +43,7 @@ queries: ## Gère la création, l'import et la modification des fichiers de requ
 		touch $(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt; \
 	fi
 
-suce: queries youtube-dl ## Recherche, télécharge et encode les résultats des recherches de la base de requêtes de la collection
+suce: collection youtube-dl ## Recherche, télécharge et encode les résultats des recherches de la base de requêtes de la collection active
 	@mkdir -p "$(COLLECTIONS_HOME)/$(COLLECTION)/audio"; \
 	NUM_TRACKS=`wc -l $(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt | cut -d' ' -f1`; \
 	I=0; \
