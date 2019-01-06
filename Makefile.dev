@@ -13,11 +13,14 @@ release: ## Crée un nouveau tag Git et le diffuse
 	git merge develop origin/develop
 	sed -i "s/^SUCOTRON_VERSION=.*/SUCOTRON_VERSION=$$VERSION/g" .env
 	git add .env
-	git commit -m "[release] Passage à la version $$VERSION"
+	git commit -m "[release] Sortie de la version $$VERSION"
 	git merge master develop
 	git tag $(VERSION)
 	git push origin develop master --tags
 	git checkout develop
+	sed -i "s/^SUCOTRON_VERSION=.*/SUCOTRON_VERSION=develop/g" .env
+	git add .env
+	git commit -m "[release] Retour en mode développement"
 
 test: ## Exécute les tests automatisés
 	TEST_ID=`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c6`; \
