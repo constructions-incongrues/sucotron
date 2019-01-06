@@ -1,4 +1,4 @@
-.PHONY=help build push release tag test
+.PHONY=help build dev push release tag test
 
 SHELL=/bin/bash
 
@@ -20,4 +20,6 @@ tag:
 	git tag $(TAG)
 	git push --tags
 
-test: help
+test: ## Exécute les tests automatisés
+	# TODO : Implémenter des tests
+	exit 255
