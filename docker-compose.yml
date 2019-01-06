@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  sucotron:
+    build: .
+    volumes:
+      - .:/usr/local/src/sucotron

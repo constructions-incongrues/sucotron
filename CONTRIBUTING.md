@@ -22,6 +22,12 @@ Les commandes liées au cycle de vie du projet sont regroupées dans le fichier 
 
 ## Cookbook
 
+### Tester des modifications en cours
+
+```sh
+docker-compose run sucotron <commande>
+```
+
 ### Publication d'une nouvelle version
 
 ```sh
