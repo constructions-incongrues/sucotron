@@ -39,12 +39,12 @@ queries: ## Gère la création, l'import et la modification des fichiers de requ
 	fi
 
 	@if [ -f "$(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt" ] && [ "$(EDIT_QUERIES)" == "true" ]; then \
-		echo "[collections/$(COLLECTION)] Édition du fichier de requêtes (file=$(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt)"; \
+		echo "[collections/$(COLLECTION)] Édition du fichier de requêtes (path=$(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt)"; \
 		touch $(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt; \
 	fi
 
 	@if [ ! -f "$(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt" ]; then \
-		echo "[collections/$(COLLECTION)] Création du fichier de requêtes (file=$(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt)"; \
+		echo "[collections/$(COLLECTION)] Création d'un fichier de requêtes vide (path=$(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt)"; \
 		mkdir -p $(COLLECTIONS_HOME)/$(COLLECTION); \
 		touch $(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt; \
 	fi
@@ -56,7 +56,8 @@ suce: queries youtube-dl ## Recherche, télécharge et encode les résultats des
 	while read -r QUERY; do \
 		VIDEO_TITLE=`./vendors/youtube-dl "ytsearch:$$QUERY" --get-title`; \
 		let "I++"; \
-		echo -ne "\r[collections/$(COLLECTION)] [$$I/$$NUM_TRACKS] query=\"$$QUERY\" result=\"$$VIDEO_TITLE\" format=\"$(AUDIO_FORMAT)\"\n"; \
+		LEVENSHTEIN_DISTANCE=`levenshtein "$$QUERY" "$$VIDEO_TITLE"`; \
+		echo -ne "\r[collections/$(COLLECTION)] [$$I/$$NUM_TRACKS] distance=\"$$LEVENSHTEIN_DISTANCE\" query=\"$$QUERY\" result=\"$$VIDEO_TITLE\" format=\"$(AUDIO_FORMAT)\"\n"; \
 		if ! [ -f "$(COLLECTIONS_HOME)/$(COLLECTION)/audio/$$VIDEO_TITLE.$(AUDIO_FORMAT)" ]; then \
 			./vendors/youtube-dl \
 				"ytsearch:$$QUERY" \
