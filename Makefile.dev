@@ -9,6 +9,7 @@ help: ## Affiche ce message d'aide. Une documentation détaillée est disponible
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 release: ## Crée un nouveau tag Git et le diffuse
+	git checkout master
 	git fetch --all -p
 	git merge develop origin/develop
 	sed -i "s/^SUCOTRON_VERSION=.*/SUCOTRON_VERSION=$$VERSION/g" .env
