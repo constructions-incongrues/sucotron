@@ -1,10 +1,12 @@
 #!/bin/bash
 
+source .env
+
 docker run \
     -it \
     --init \
     --rm \
     --user $(id -u):$(id -g) \
     -v $PWD/collections:/usr/local/src/sucotron/collections \
-    constructionsincongrues/sucotron \
+    ${SUCOTRON_IMAGE-constructionsincongrues/sucotron}:${SUCOTRON_TAG-latest} \
     make "$@"

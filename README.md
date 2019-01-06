@@ -67,6 +67,7 @@ Le Suçotron s'appuie sur [Make](https://www.gnu.org/software/make/) et expose l
 - `help` :  Affiche l'aide en ligne
 - `queries` Gère la création, l'import et la modification des fichiers de requête de la collection
 - `suce` :  Recherche, télécharge et encode les résultats des recherches du fichier de requêtes de la collection
+- `version` : Affiche la version de Suçotron en cours d'utilisation
 
 ### Paramètres
 
