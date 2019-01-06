@@ -28,7 +28,7 @@ On l'exécute avec la commande `docker-compose run sucotron make -f Makefile.dev
 
 ## Cookbook
 
-### Reconstruire l'image
+### Reconstruire l'image du Suçotron
 
 ```sh
 docker-compose build
