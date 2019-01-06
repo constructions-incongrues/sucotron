@@ -82,7 +82,7 @@ Le Suçotron s'appuie entre autres sur [Make](https://www.gnu.org/software/make/
 - `FORCE=false` : Définir à `true` pour déclencher le mode non-interactif. Il sera répondu `oui` à toutes les questions
 - `IMPORT_QUERIES=false` : Définir comme le chemin vers une base de requêtes existante pour l'importer dans la collection
 
-## Cookbook
+## Recettes
 
 ### Création d'une nouvelle collection au format MP3
 

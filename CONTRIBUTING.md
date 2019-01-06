@@ -26,7 +26,7 @@ La suite de tests est implémentée dans la cible `test` du fichier [`Makefile.d
 
 On l'exécute avec la commande `docker-compose build && docker-compose run sucotron make -f Makefile.dev test`.
 
-## Cookbook
+## Recettes
 
 ### Reconstruire l'image du Suçotron
 
