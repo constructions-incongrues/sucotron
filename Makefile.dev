@@ -1,25 +1,22 @@
-.PHONY=help executable release test
+.PHONY=help release test
 
 SHELL=/bin/bash
 
+IMAGE=constructionsincongrues/sucotron
 VERSION=
 
 help: ## Affiche ce message d'aide. Une documentation détaillée est disponible à l'adresse suivante : https://github.com/constructions-incongrues/sucotron
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-executable: ## Génère un exécutable sucotron avec un numéro de version donné
-	COLLECTIONS_HOME=./collections SUCOTRON_IMAGE=constructionsincongrues/sucotron SUCOTRON_VERSION=$(VERSION) envsubst < etc/sucotron.dist > bin/sucotron
-	chmod +x bin/sucotron
-
 release: ## Crée un nouveau tag Git et le diffuse
 	git hf release start $$VERSION
-	$(MAKE) -f Makefile.dev executable VERSION=$$VERSION
-	git add bin/sucotron
-	git commit -m "[release] Sortie de la version $(VERSION)"
+	sed -i "s/^SUCOTRON_VERSION=.*/SUCOTRON_VERSION=$$VERSION/g" .env
+	git add .env
+	git commit -m "[release] Sortie de la version $$VERSION"
 	git hf release finish $$VERSION
-	$(MAKE) -f Makefile.dev executable VERSION=develop
+	sed -i "s/^SUCOTRON_VERSION=.*/SUCOTRON_VERSION=develop/g" .env
+	git add .env
 	git commit -m "[release] Retour sur la branche d'intégration"
-	git push origin develop
 
 test: ## Exécute les tests automatisés
 	TEST_ID=`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c6`; \
