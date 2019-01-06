@@ -4,7 +4,7 @@ services:
   sucotron:
     build: .
     env_file: .env
-    image: constructionsincongrues/sucotron:${SUCOTRON_VERSION-latest}
+    image: ${SUCOTRON_IMAGE-constructionsincongrues/sucotron}:${SUCOTRON_VERSION-latest}
     user: ${FIXUID:-1000}:${FIXGID:-1000}
     volumes:
       - .:/usr/local/src/sucotron
