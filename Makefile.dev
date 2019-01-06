@@ -20,7 +20,7 @@ test: ## Exécute les tests automatisés
 	make queries COLLECTION="test$$TEST_ID"; \
 	echo "Jean Yann - Chobibi" > "./collections/test$$TEST_ID/queries.txt"; \
 	echo "Sabine Paturelle Les bêtises" >> "./collections/test$$TEST_ID/queries.txt"; \
-	make suce COLLECTION="test$$TEST_ID" \
+	make suce COLLECTION="test$$TEST_ID"; \
 	make clean COLLECTION="test$$TEST_ID" FORCE=yes; \
 	make help; \
 	rm -r "./collections/test$$TEST_ID"
