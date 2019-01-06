@@ -51,7 +51,7 @@ Docker doit être [installé](https://docs.docker.com/install/) au préalable.
 Vous pouvez ensuite installer la dernière version stable de Suçotron :
 
 ```sh
-curl -sSL https://raw.githubusercontent.com/constructions-incongrues/sucotron/master/bin/sucotron > ./sucotron
+curl -sSL https://raw.githubusercontent.com/constructions-incongrues/sucotron/master/dist/sucotron > ./sucotron
 chmod +x ./sucotron
 sudo mv ./sucotron /usr/local/bin/sucotron
 ```
