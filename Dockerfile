@@ -32,4 +32,4 @@ COPY --chown=docker:docker . /usr/local/src/sucotron
 RUN make youtube-dl
 
 # L'exécutable fixuid se charge de synchroniser les uid et gid avant d'exécuter quoique ce soit
-ENTRYPOINT ["fixuid", "-q"]
+ENTRYPOINT  [ "fixuid", "-q" ]

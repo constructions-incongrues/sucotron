@@ -63,7 +63,7 @@ suce: queries youtube-dl ## Recherche, télécharge et encode les résultats des
 	done < $(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt;
 
 version: ## Affiche la version de Suçotron en cours d'utilisation
-	@source .env && echo "$$SUCOTRON_VERSION"
+	@echo "$${SUCOTRON_VERSION-develop}"
 
 youtube-dl:
 	@if ! [ -f ./vendor/youtube-dl ]; then \
