@@ -13,5 +13,9 @@ release:
 	git push --tags
 
 test: ## Exécute les tests automatisés
-	# TODO : Implémenter des tests
-	exit 255
+	env
+	TEST_ID=`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c6`; \
+	make suce COLLECTION="test$$TEST_ID"; \
+	make clean COLLECTION="test$$TEST_ID" FORCE=yes; \
+	make help; \
+	rm -r "./collections/test$$TEST_ID"
