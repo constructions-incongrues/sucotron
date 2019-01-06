@@ -16,8 +16,8 @@ test: ## Exécute les tests automatisés
 	env
 	TEST_ID=`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c6`; \
 	make queries COLLECTION="test$$TEST_ID"; \
-	echo "Jean Yann - Chobibi" > ./collections/$$TEST_ID/queries.txt; \
-	echo "Sabine Paturelle Les bêtises" >> ./collections/$$TEST_ID/queries.txt; \
+	echo "Jean Yann - Chobibi" > "./collections/test$$TEST_ID/queries.txt"; \
+	echo "Sabine Paturelle Les bêtises" >> "./collections/test$$TEST_ID/queries.txt"; \
 	make suce COLLECTION="test$$TEST_ID" \
 	make clean COLLECTION="test$$TEST_ID" FORCE=yes; \
 	make help; \
