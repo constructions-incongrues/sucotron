@@ -1,4 +1,4 @@
-.PHONY=help build dev push release tag test
+.PHONY=help release test
 
 SHELL=/bin/bash
 
@@ -8,15 +8,7 @@ TAG=latest
 help: ## Affiche ce message d'aide. Une documentation détaillée est disponible à l'adresse suivante : https://github.com/constructions-incongrues/sucotron
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-build: ## Génère une image Docker à partir des sources du projet
-	docker build -t $(IMAGE):$(TAG) .
-
-push: ## Publie l'image Docker dans son registre
-	docker push $(IMAGE):$(TAG)
-
-release: tag build push ## Crée et publie une nouvelle version du projet
-
-tag:
+release:
 	git tag $(TAG)
 	git push --tags
 

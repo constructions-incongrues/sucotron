@@ -3,5 +3,6 @@ version: '3'
 services:
   sucotron:
     build: .
+    image: constructionsincongrues/sucotron
     volumes:
       - .:/usr/local/src/sucotron
