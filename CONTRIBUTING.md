@@ -39,3 +39,5 @@ docker-compose run sucotron <commande>
 ```sh
 make -f Makefile.dev release TAG=x.y.z
 ```
+
+Cette commande va créer et publier un nouveau tag Git ce qui déclenche les phases de test et de publication d'une nouvelle image Docker le cas échéant : <https://cloud.docker.com/u/constructionsincongrues/repository/registry-1.docker.io/constructionsincongrues/sucotron>

@@ -8,7 +8,7 @@ TAG=latest
 help: ## Affiche ce message d'aide. Une documentation détaillée est disponible à l'adresse suivante : https://github.com/constructions-incongrues/sucotron
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-release:
+release: ## Crée un nouveau tag Git et le diffuse
 	git tag $(TAG)
 	git push --tags
 
@@ -16,6 +16,8 @@ test: ## Exécute les tests automatisés
 	env
 	TEST_ID=`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c6`; \
 	make suce COLLECTION="test$$TEST_ID"; \
+	echo "Jean Yann - Chobibi" > ./collections/$$TEST_ID/queries.txt
+	echo "Sabine Paturelle Les bêtises" >> ./collections/$$TEST_ID/queries.txt
 	make clean COLLECTION="test$$TEST_ID" FORCE=yes; \
 	make help; \
 	rm -r "./collections/test$$TEST_ID"
