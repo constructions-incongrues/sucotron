@@ -1,4 +1,4 @@
-.PHONY=help build push release tag
+.PHONY=help build push release tag test
 
 SHELL=/bin/bash
 
@@ -19,3 +19,5 @@ release: tag build push ## Crée et publie une nouvelle version du projet
 tag:
 	git tag $(TAG)
 	git push --tags
+
+test: help
