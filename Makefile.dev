@@ -19,6 +19,7 @@ release: ## Crée un nouveau tag Git et le diffuse
 	git tag $(VERSION)
 	git push origin develop master --tags
 	git checkout develop
+	git pull origin develop
 	sed -i "s/^SUCOTRON_VERSION=.*/SUCOTRON_VERSION=develop/g" .env
 	git add .env
 	git commit -m "[release] Retour en mode développement"
