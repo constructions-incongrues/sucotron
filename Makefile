@@ -26,24 +26,24 @@ clean: ## Supprime les fichiers audio de la collection
 queries: ## Gère la création, l'import et la modification des fichiers de requête de la collection
 	@if [ "$(IMPORT_QUERIES)" != "false" ] && [ -f "$(IMPORT_QUERIES)" ]; then \
 		if [ "$(FORCE)" == "false" ]; then \
-			read -e -p "[collections/$(COLLECTION)] Le fichier de requêtes existant sera écrasé. Êtes-vous sûr⋅e ? [o/N] " RESPONSE; \
+			read -e -p "[collections/$(COLLECTION)] La base de requêtes existant sera écrasé. Êtes-vous sûr⋅e ? [o/N] " RESPONSE; \
 			if [ "$$RESPONSE" == "o" ]; then \
-				echo "[collections/$(COLLECTION)] Import du fichier de requêtes (file=$(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt)"; \
+				echo "[collections/$(COLLECTION)] Import de la base de requêtes (file=$(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt)"; \
 				cp "$(IMPORT_QUERIES)" "$(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt"; \
 			fi; \
 		else \
-			echo "[collections/$(COLLECTION)] Import du fichier de requêtes (forcé, file=$(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt)"; \
+			echo "[collections/$(COLLECTION)] Import de la base de requêtes (forcé, file=$(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt)"; \
 			cp "$(IMPORT_QUERIES)" "$(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt"; \
 		fi; \
 	fi
 
 	@if [ ! -f "$(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt" ]; then \
-		echo "[collections/$(COLLECTION)] Création d'un fichier de requêtes vide (path=$(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt)"; \
+		echo "[collections/$(COLLECTION)] Création d'une base de requêtes vide (path=$(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt)"; \
 		mkdir -p $(COLLECTIONS_HOME)/$(COLLECTION); \
 		touch $(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt; \
 	fi
 
-suce: queries youtube-dl ## Recherche, télécharge et encode les résultats des recherches du fichier de requêtes de la collection
+suce: queries youtube-dl ## Recherche, télécharge et encode les résultats des recherches de la base de requêtes de la collection
 	@mkdir -p "$(COLLECTIONS_HOME)/$(COLLECTION)/audio"; \
 	NUM_TRACKS=`wc -l $(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt | cut -d' ' -f1`; \
 	I=0; \
