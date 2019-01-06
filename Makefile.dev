@@ -17,6 +17,7 @@ release: ## Crée un nouveau tag Git et le diffuse
 	sed -i "s/^SUCOTRON_VERSION=.*/SUCOTRON_VERSION=develop/g" .env
 	git add .env
 	git commit -m "[release] Retour sur la branche d'intégration"
+	git push origin develop
 
 test: ## Exécute les tests automatisés
 	TEST_ID=`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c6`; \
