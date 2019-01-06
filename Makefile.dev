@@ -16,7 +16,7 @@ release: ## Crée un nouveau tag Git et le diffuse
 	git add .env
 	git commit -m "[release] Sortie de la version $(VERSION)"
 	git checkout master
-	git merge master origin/master
+	git pull origin master
 	git merge develop
 	git tag $(VERSION)
 	git push origin develop master --tags
