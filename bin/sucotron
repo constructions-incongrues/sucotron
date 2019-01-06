@@ -6,5 +6,5 @@ docker run \
     --rm \
     --user $(id -u):$(id -g) \
     -v ${COLLECTIONS_HOME-./collections}:/usr/local/src/sucotron/collections \
-    ${SUCOTRON_IMAGE-constructionsincongrues/sucotron}:develop \
+    ${SUCOTRON_IMAGE-constructionsincongrues/sucotron}:1.1.17 \
     make "$@"
