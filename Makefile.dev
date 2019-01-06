@@ -14,6 +14,7 @@ release: ## Crée un nouveau tag Git et le diffuse
 	git merge develop
 	git tag $(VERSION)
 	git push origin develop master --tags
+	git checkout develop
 
 test: ## Exécute les tests automatisés
 	TEST_ID=`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c6`; \
