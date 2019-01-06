@@ -1,3 +1,4 @@
+# https://docs.docker.com/docker-hub/builds/automated-testing/
 sut:
   build: .
   command: make -f Makefile.dev test
