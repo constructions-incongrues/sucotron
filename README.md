@@ -64,6 +64,13 @@ chmod +x ./sucotron
 sudo mv ./sucotron /usr/local/bin/sucotron
 ```
 
+### Gestion de versions multiples
+
+Par défaut, l'exécutable `sucotron` utilise la dernière version stable connue du Suçotron. Il est possible de choisir facilement la version à utiliser à l'aide de la variable d'environnement `SUCOTRON_VERSION` :
+
+- Occasionnellement, en la faisant précéder l'appel de l'exécutable : `SUCOTRON_VERSION=1.15.0 sucotron version`
+- De manière permanente, en l'ajoutant au profil de configuration au démarrage de votre shell : `echo SUCOTRON_VERSION=1.15.0 >> ~/.basrc`
+
 ## Utilisation
 
 ### Commandes
@@ -71,10 +78,9 @@ sudo mv ./sucotron /usr/local/bin/sucotron
 Le Suçotron s'appuie entre autres sur [Make](https://www.gnu.org/software/make/) et l'utilise pour exposer les commandes suivantes :
 
 - `clean` : Supprime les fichiers audio de la collection active
-- `help` :  Affiche l'aide en ligne
 - `collection` Gère la création, l'import et la modification de la base de données de requêtes de la collection
+- `help` :  Affiche l'aide en ligne
 - `suce` :  Recherche, télécharge et encode les résultats des recherches émises depuis la base de requêtes de la collection active
-- `version` : Affiche la version de Suçotron en cours d'utilisation
 
 ### Paramètres
 
