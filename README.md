@@ -1,5 +1,7 @@
 # Le Suçotron
 
+![Il aspire pour vous](sucotron.gif)
+
 ## Présentation
 
 Le Suçotron permet d'obtenir simplement et rapidement de grandes quantités de morceaux de musique à partir d'une liste de références approximatives.
