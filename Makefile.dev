@@ -7,7 +7,7 @@ VERSION=
 help: ## Affiche ce message d'aide. Une documentation détaillée est disponible à l'adresse suivante : https://github.com/constructions-incongrues/sucotron
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-release: ## Crée d'une nouvelle release sur Github
+release: ## Crée un nouveau tag Git et le diffuse
 	git hf release start $$VERSION
 	git hf release finish $$VERSION
 
