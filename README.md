@@ -1,6 +1,6 @@
-# Le Suçotron
-
-![Il aspire pour vous](sucotron.gif)
+<p align="center">
+  <img src="sucotron.gif">
+</p>
 
 ## Présentation
 
