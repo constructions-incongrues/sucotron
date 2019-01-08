@@ -20,9 +20,15 @@ Les commandes liées au cycle de vie du projet sont regroupées dans le fichier 
 - `IMAGE=constructionsincongrues/sucotron` : Nom de l'image Docker
 - `VERSION=` : Une version d'application au format [SemVer](https://semver.org/)
 
-## Cookbook
+## Tests
 
-### Reconstruire l'image
+La suite de tests est implémentée dans la cible `test` du fichier [`Makefile.dev`](Makefile.dev).
+
+On l'exécute avec la commande `docker-compose build && docker-compose run sucotron make -f Makefile.dev test`.
+
+## Recettes
+
+### Reconstruire l'image du Suçotron
 
 ```sh
 docker-compose build

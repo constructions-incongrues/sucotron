@@ -1,12 +1,16 @@
-# Le Suçotron
+<p align="center">
+  <img src="sucotron.gif">
+</p>
 
 ## Présentation
 
 Le Suçotron permet d'obtenir simplement et rapidement de grandes quantités de morceaux de musique à partir d'une liste de références approximatives.
 
+Plus concrètement, il permet de gérer des collections de fichiers audio. Chaque collection contient à sa racine un fichier `queries.txt` qui liste des requêtes de recherche Youtube. À l'exécution du script, les requêtes de la collection sélectionnée sont envoyées au moteur de recherche de Youtube. Le premier résultat de chaque recherche est téléchargé et ajouté à la collection.
+
 Il a été développé à la base pour répondre aux besoins des contributeurs des projets [Ouïedire](http://www.ouiedire.net) et [Empilements](http://empilements.incongru.org).
 
-Plus concrètement, il permet de gérer des collections de fichiers audio. Chaque collection contient à sa racine un fichier `queries.txt` qui liste des requêtes de recherche Youtube. À l'exécution du script, les requêtes de la collection sélectionnée sont envoyées au moteur de recherche de Youtube. Le premier résultat de chaque recherche est téléchargé et ajouté à la collection.
+Le Suçotron est un projet du collectif [Constructions Incongrues](http://www.constructions-incongrues.net).
 
 ### Exemple d'utilisation
 
@@ -15,7 +19,7 @@ Plus concrètement, il permet de gérer des collections de fichiers audio. Chaqu
 mkdir collections
 
 # Création d'une collection intitulée "chansonstristes" avec une base de requêtes vide
-sucotron queries COLLECTION=chansonstristes
+sucotron collection COLLECTION=chansonstristes
 
 # Ajout de requêtes au fichier
 echo "La chanson d'Hélène Piccoli" > ./collections/chansonstristes/queries.txt
@@ -29,26 +33,30 @@ sucotron suce COLLECTION=chansonstristes > sucotron.log
 
 La commande précédente génère cette sortie (la distance permet de se faire une idée approximative de la similarité entre la requête et le titre du meilleur résultat) :
 
-```s
+```text
 # cat sucotron.log
-[collections/chansonstristes] [1/4] distance="41" query="La chanson d'Hélène Piccoli" result="Romy Schneider & Michel Piccoli "La chanson d'Hélène"" format="mp3"
-[collections/chansonstristes] [2/4] distance="9" query="Ce soir je m'en vais Jacqueline Taiebbe" result="Ce Soir Je M'en Vais by Jacqueline Taieb" format="mp3"
-[collections/chansonstristes] [3/4] distance="6" query="J'ai le cafard Damia" result="J'ai le cafard" format="mp3"
-[collections/chansonstristes] [4/4] distance="3" query="Pépé Léo Ferré" result="Pépée - Léo Ferré" format="mp3"
+[collections/chansonstristes] [1/4] distance="41" query="La chanson d'Hélène Piccoli" result="Romy Schneider & Michel Piccoli "La chanson d'Hélène"" format="flac"
+[collections/chansonstristes] [2/4] distance="9" query="Ce soir je m'en vais Jacqueline Taiebbe" result="Ce Soir Je M'en Vais by Jacqueline Taieb" format="flac"
+[collections/chansonstristes] [3/4] distance="6" query="J'ai le cafard Damia" result="J'ai le cafard" format="flac"
+[collections/chansonstristes] [4/4] distance="3" query="Pépé Léo Ferré" result="Pépée - Léo Ferré" format="flac"
 ```
 
-```sh
-# Les fichiers audio au format MP3 ont bien été ajoutés à la collection
-$ ls collections/chansonstristes/audio/
+Les fichiers audio au format MP3 ont bien été ajoutés à la collection :
 
-"Ce Soir Je M'en Vais by Jacqueline Taieb.mp3"  "J'ai le cafard.mp3"  'Pépée - Léo Ferré.mp3'  'Romy Schneider & Michel Piccoli '\''La chanson d'\''Hélène'\''.mp3'
+```text
+# ls -lh collections/chansonstristes/audio/
+total 113M
+-rw-r--r-- 1 tristan tristan 25M nov.   7  2014 "Ce Soir Je M'en Vais by Jacqueline Taieb.flac"
+-rw-r--r-- 1 tristan tristan 22M sept. 29  2017 "J'ai le cafard.flac"
+-rw-r--r-- 1 tristan tristan 50M oct.  31 22:29 'Pépée - Léo Ferré.flac'
+-rw-r--r-- 1 tristan tristan 17M sept. 21 13:52 'Romy Schneider & Michel Piccoli '\''La chanson d'\''Hélène'\''.flac'
 ```
 
 ## Installation
 
 Docker doit être [installé](https://docs.docker.com/install/) au préalable.
 
-Vous pouvez ensuite installer la dernière version stable de Suçotron :
+Vous pouvez dorénavant installer le Suçotron :
 
 ```sh
 curl -sSL https://raw.githubusercontent.com/constructions-incongrues/sucotron/master/dist/sucotron > ./sucotron
@@ -60,11 +68,11 @@ sudo mv ./sucotron /usr/local/bin/sucotron
 
 ### Commandes
 
-Le Suçotron s'appuie sur [Make](https://www.gnu.org/software/make/) et expose les commandes suivantes :
+Le Suçotron s'appuie entre autres sur [Make](https://www.gnu.org/software/make/) et l'utilise pour exposer les commandes suivantes :
 
 - `clean` : Supprime les fichiers audio de la collection active
 - `help` :  Affiche l'aide en ligne
-- `queries` Gère la création, l'import et la modification des fichiers de requête de la collection active
+- `collection` Gère la création, l'import et la modification de la base de données de requêtes de la collection
 - `suce` :  Recherche, télécharge et encode les résultats des recherches émises depuis la base de requêtes de la collection active
 - `version` : Affiche la version de Suçotron en cours d'utilisation
 
@@ -74,9 +82,9 @@ Le Suçotron s'appuie sur [Make](https://www.gnu.org/software/make/) et expose l
 - `COLLECTION=default` : Nom de la collection active
 - `COLLECTIONS_HOME=./collections` : Chemin vers un dossier destiné à contenir des collections
 - `FORCE=false` : Définir à `true` pour déclencher le mode non-interactif. Il sera répondu `oui` à toutes les questions
-- `IMPORT_QUERIES=false` : Définir comme le chemin vers une base de requêtes existant pour l'importer dans la collection
+- `IMPORT_QUERIES=false` : Définir comme le chemin vers une base de requêtes existante pour l'importer dans la collection
 
-## Cookbook
+## Recettes
 
 ### Création d'une nouvelle collection au format MP3
 
