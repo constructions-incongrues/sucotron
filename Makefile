@@ -65,6 +65,7 @@ suce: collection youtube-dl ## Recherche, télécharge et encode les résultats 
 youtube-dl:
 	@if ! [ -f ./vendor/youtube-dl ]; then \
 		echo "[sucotron/vendor] Installation de youtube-dl"; \
-		curl -LsS "https://yt-dl.org/downloads/2019.01.02/youtube-dl" > ./vendor/youtube-dl; \
-    	chmod +x ./vendor/youtube-dl; \
+		curl -LsS "https://yt-dl.org/downloads/2019.02.18/youtube-dl" > ./vendor/youtube-dl; \
+		chmod +x ./vendor/youtube-dl; \
+		./vendor/youtube-dl --update; \
     fi
