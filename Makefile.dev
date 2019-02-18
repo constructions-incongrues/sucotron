@@ -12,6 +12,7 @@ release: ## Crée un nouveau tag Git et le diffuse
 	git hf release finish $$VERSION
 
 test: ## Exécute les tests automatisés
+	make youtube-dl
 	TEST_ID=`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c6`; \
 	make collection COLLECTION="test$$TEST_ID" || exit 255; \
 	echo "Jean Yann - Chobibi" > "./collections/test$$TEST_ID/queries.txt"; \
