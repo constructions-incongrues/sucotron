@@ -63,7 +63,6 @@ suce: collection youtube-dl ## Recherche, télécharge et encode les résultats 
 	done < $(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt;
 
 youtube-dl:
-	@mkdir -p ./vendor
 	@if ! [ -f ./vendor/youtube-dl ]; then \
 		echo "[sucotron/vendor] Installation de youtube-dl"; \
 		curl -LsS "https://yt-dl.org/downloads/2019.02.18/youtube-dl" > ./vendor/youtube-dl; \
