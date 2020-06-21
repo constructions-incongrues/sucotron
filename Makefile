@@ -49,7 +49,6 @@ suce: collection youtube-dl ## Recherche, télécharge et encode les résultats 
 	I=0; \
 	while read -r QUERY; do \
 		VIDEO_TITLE=`./vendor/youtube-dl "ytsearch:$$QUERY" --get-title`; \
-		let "I++"; \
 		LEVENSHTEIN_DISTANCE=`levenshtein "$$QUERY" "$$VIDEO_TITLE"`; \
 		echo -ne "\r[collections/$(COLLECTION)] [$$I/$$NUM_TRACKS] distance=\"$$LEVENSHTEIN_DISTANCE\" query=\"$$QUERY\" result=\"$$VIDEO_TITLE\" format=\"$(AUDIO_FORMAT)\"\n"; \
 		if ! [ -f "$(COLLECTIONS_HOME)/$(COLLECTION)/audio/$$VIDEO_TITLE.$(AUDIO_FORMAT)" ]; then \
@@ -60,6 +59,7 @@ suce: collection youtube-dl ## Recherche, télécharge et encode les résultats 
 				--quiet \
 				--output="$(COLLECTIONS_HOME)/$(COLLECTION)/audio/%(title)s.webm)"; \
 		fi; \
+		let "I++"; \
 	done < $(COLLECTIONS_HOME)/$(COLLECTION)/queries.txt;
 
 youtube-dl:
@@ -69,3 +69,48 @@ youtube-dl:
 		chmod +x ./vendor/youtube-dl; \
 		./vendor/youtube-dl --update; \
     fi
+
+
+jekyll: jekyll-init jekyll-build
+
+jekyll-attach:
+	docker run \
+		-it \
+		--rm \
+		-e JEKYLL_GID=$$(id -g) \
+		-e JEKYLL_UID=$$(id -u) \
+		-u jekyll \
+		-v "$(PWD)/$(COLLECTIONS_HOME)/:/var/collections" \
+		-v "$(PWD)/$(COLLECTIONS_HOME)/$(COLLECTION)/jekyll:/srv/jekyll" \
+		-v "$(PWD)/vendor/bundle:/usr/local/bundle" \
+		jekyll/jekyll:4.0 bash
+
+jekyll-init:
+	docker run \
+		--rm \
+		-e JEKYLL_GID=$$(id -g) \
+		-e JEKYLL_UID=$$(id -u) \
+		-v "$(PWD)/$(COLLECTIONS_HOME)/:/var/collections" \
+		-v "$(PWD)/$(COLLECTIONS_HOME)/$(COLLECTION)/jekyll:/srv/jekyll" \
+		-v "$(PWD)/vendor/bundle:/usr/local/bundle" \
+		jekyll/jekyll:4.0 \
+			sh -c "bundle install && yes | octopod setup "
+
+jekyll-build:
+	docker run \
+		--rm \
+		-e JEKYLL_GID=$$(id -g) \
+		-e JEKYLL_UID=$$(id -u) \
+		-u jekyll \
+		-v "$(PWD)/$(COLLECTIONS_HOME)/:/var/collections" \
+		-v "$(PWD)/$(COLLECTIONS_HOME)/$(COLLECTION)/jekyll:/srv/jekyll" \
+		-v "$(PWD)/vendor/bundle:/usr/local/bundle" \
+		jekyll/jekyll:4.0 \
+			sh -c "jekyll build --source /var/collections/$(COLLECTION)/jekyll --destination /var/collections/$(COLLECTION)/jekyll/_site"
+
+jekyll-preview:
+	docker run \
+		--rm \
+		-p "4000:80" \
+		-v "$(PWD)/collections/default/jekyll/_site:/usr/share/nginx/html" \
+		nginx:stable-alpine
